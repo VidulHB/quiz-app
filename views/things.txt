@@ -1,0 +1,4 @@
+<li><label for="a1<%-i+1%>" class="label"><%-data.questions[i].answer1%><input type="checkbox" class="inputc" name="a<%-i+1%>" id="a1<%-i+1%>"> <span class="checkmark"></span></label></li>
+            <li><label for="a2<%-i+1%>" class="label"><%-data.questions[i].answer2%><input type="checkbox" class="inputc" name="a<%-i+1%>" id="a2<%-i+1%>"> <span class="checkmark"></span></label></li>
+            <li><label for="a3<%-i+1%>" class="label"><%-data.questions[i].answer3%><input type="checkbox" class="inputc" name="a<%-i+1%>" id="a3<%-i+1%>"> <span class="checkmark"></span></label></li>
+            <li><label for="a4<%-i+1%>" class="label"><%-data.questions[i].answer4%><input type="checkbox" class="inputc" name="a<%-i+1%>" id="a4<%-i+1%>"> <span class="checkmark"></span></label></li>

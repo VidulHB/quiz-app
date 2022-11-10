@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database</title>
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <!--Stylesheet-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <style media="screen">
+    *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Rubik",sans-serif;
+}
+body{
+    height: 100%;
+    background: #C6FFDD;
+}
+.container{
+    background-color: #ffffff;
+    width: 80%;
+  height: 50%;
+  overflow-x: hidden;
+  overflow-y: auto;
+    padding: 35px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    box-shadow: 15px 30px 35px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    -webkit-perspective: 300px;
+    perspective: 300px;
+}
+.stats{
+    display: flex;
+    color: #101020;
+  width: 98%;
+    font-weight: 500;
+    padding: 20px;
+    margin-bottom: 10px;
+    margin-top: 55px;
+    box-shadow: 0 0 20px rgba(0,139,253,0.25);
+  
+
+}
+    .stats2{
+    display: flex;
+    color: #101020;
+  width: 98%;
+    font-weight: 500;
+    padding: 20px;
+    margin-bottom: 40px;
+    margin-top: 0px;
+    box-shadow: 0 0 20px rgba(0,139,253,0.25);
+  
+
+    }
+.buttons{
+    display: flex;
+    justify-content: space-between;
+}
+    .buttons2{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+button{
+    width: 150px;
+    padding: 15px 0;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#calculate-button{
+    background-color: #d6d43c;
+    color: #ffffff;
+}
+#calculate-button:disabled{
+    background-color: #edecb4;
+    border-color: #edecb4;
+    color: #101020;
+}
+    #add-button{
+    background-color: #42f563;
+    color: #ffffff;
+    }
+#clear-button{
+    background-color: #f08832;
+    color: white;
+}
+    .input {
+ padding: 20px;
+      margin: 10px;
+ user-select: none;
+ height: 50px;
+ width: 400px;
+ border-radius: 6px;
+ border: none;
+ border: 2px solid #8d0cf7;
+ outline: none;
+ font-size: 22px;
+ }
+    .inputc {
+ user-select: none;
+ height: 50px;
+ width: 400px;
+ border-radius: 6px;
+ border: none;
+ border: 2px solid #8d0cf7;
+ outline: none;
+ font-size: 22px;
+ }
+  select {
+ user-select: none;
+ height: 50px;
+ width: 400px;
+ border-radius: 6px;
+ border: none;
+ border: 2px solid #8d0cf7;
+ outline: none;
+    color: #787878;
+ font-size: 22px;
+  }
+
+    select::part(listbox) {
+ height: 50px;
+ width: 400px;
+ border-radius: 6px;
+ border: none;
+ border: 2px solid #8d0cf7;
+ outline: none;
+    color: #787878;
+ font-size: 22px;
+  }
+    
+
+input::placeholder{
+  font-size: 23px;
+ } 
+    .inputc {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+    .label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+    .label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+    ::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0,139,253,0.25);
+  border-radius: 10px;
+}
+    
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.label input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.label input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.label .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+    li h3 {
+      margin: 20px;
+    }
+  </style>
+</head>
+<body onload="load()">
+    <div class="container">
+         <div class="stats">
+           <h2>Congragulations</h2>
+         </div>
+           <div class="stats2">
+          <p>You Got <%-score%> Out Of <%-amount%> For The <%-quiz_name%> Quiz</p>
+      </div>
+              <div class="buttons">
+            <button id="calculate-button" onclick="gohome()">
+                Home
+            </button>
+              </div>
+                  </div>
+    <!--Script-->
+  <script type="text/javascript">
+    function load() {
+      startConfetti();
+      setTimeout(() => { stopConfetti(); }, 7000);
+      let mySound = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_473a42432c.mp3')
+mySound.play()
+    }
+      function gohome() {
+  var url = `https://Quiz-APP.vidulhb.repl.co/quiz/nothing/get`
+window.location.href = url;
+      }
+
+    toastr.options = {
+  "closeButton": false,
+  "debug": true,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "2000",
+  "hideDuration": "1000",
+  "timeOut": "2000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+    }
+  </script>
+            <script type="text/javascript">
+              var maxParticleCount = 2000;
+var particleSpeed = 2;
+var startConfetti;
+var stopConfetti;
+var toggleConfetti;
+var removeConfetti;
+
+(function() {
+	startConfetti = startConfettiInner;
+	stopConfetti = stopConfettiInner;
+	toggleConfetti = toggleConfettiInner;
+	removeConfetti = removeConfettiInner;
+	var colors = ["DodgerBlue", "OliveDrab", "Gold", "Pink", "SlateBlue", "LightBlue", "Violet", "PaleGreen", "SteelBlue", "SandyBrown", "Chocolate", "Crimson"]
+	var streamingConfetti = false;
+	var animationTimer = null;
+	var particles = [];
+	var waveAngle = 0;
+	
+	function resetParticle(particle, width, height) {
+		particle.color = colors[(Math.random() * colors.length) | 0];
+		particle.x = Math.random() * width;
+		particle.y = Math.random() * height - height;
+		particle.diameter = Math.random() * 10 + 5;
+		particle.tilt = Math.random() * 10 - 10;
+		particle.tiltAngleIncrement = Math.random() * 0.07 + 0.05;
+		particle.tiltAngle = 0;
+		return particle;
+	}
+
+	function startConfettiInner() {
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+		window.requestAnimFrame = (function() {
+			return window.requestAnimationFrame ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||
+				function (callback) {
+					return window.setTimeout(callback, 16.6666667);
+				};
+		})();
+		var canvas = document.getElementById("confetti-canvas");
+		if (canvas === null) {
+			canvas = document.createElement("canvas");
+			canvas.setAttribute("id", "confetti-canvas");
+			canvas.setAttribute("style", "display:block;z-index:999999;pointer-events:none");
+			document.body.appendChild(canvas);
+			canvas.width = width;
+			canvas.height = height;
+			window.addEventListener("resize", function() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			}, true);
+		}
+		var context = canvas.getContext("2d");
+		while (particles.length < maxParticleCount)
+			particles.push(resetParticle({}, width, height));
+		streamingConfetti = true;
+		if (animationTimer === null) {
+			(function runAnimation() {
+				context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+				if (particles.length === 0)
+					animationTimer = null;
+				else {
+					updateParticles();
+					drawParticles(context);
+					animationTimer = requestAnimFrame(runAnimation);
+				}
+			})();
+		}
+	}
+
+	function stopConfettiInner() {
+		streamingConfetti = false;
+	}
+
+	function removeConfettiInner() {
+		stopConfetti();
+		particles = [];
+	}
+
+	function toggleConfettiInner() {
+		if (streamingConfetti)
+			stopConfettiInner();
+		else
+			startConfettiInner();
+	}
+
+	function drawParticles(context) {
+		var particle;
+		var x;
+		for (var i = 0; i < particles.length; i++) {
+			particle = particles[i];
+			context.beginPath();
+			context.lineWidth = particle.diameter;
+			context.strokeStyle = particle.color;
+			x = particle.x + particle.tilt;
+			context.moveTo(x + particle.diameter / 2, particle.y);
+			context.lineTo(x, particle.y + particle.tilt + particle.diameter / 2);
+			context.stroke();
+		}
+	}
+
+	function updateParticles() {
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+		var particle;
+		waveAngle += 0.01;
+		for (var i = 0; i < particles.length; i++) {
+			particle = particles[i];
+			if (!streamingConfetti && particle.y < -15)
+				particle.y = height + 100;
+			else {
+				particle.tiltAngle += particle.tiltAngleIncrement;
+				particle.x += Math.sin(waveAngle);
+				particle.y += (Math.cos(waveAngle) + particle.diameter + particleSpeed) * 0.5;
+				particle.tilt = Math.sin(particle.tiltAngle) * 15;
+			}
+			if (particle.x > width + 20 || particle.x < -20 || particle.y > height) {
+				if (streamingConfetti && particles.length <= maxParticleCount)
+					resetParticle(particle, width, height);
+				else {
+					particles.splice(i, 1);
+					i--;
+				}
+			}
+		}
+	}
+})();
+            </script>
+</body>
+</html>
